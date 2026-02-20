@@ -1,6 +1,6 @@
 # open-source-pr-workflow
 
-A Codex skill that provides a practical workflow for contributing to open-source projects and opening review-ready pull requests.
+A Codex skill focused on preparing and opening review-ready pull requests for open-source projects.
 
 ## What this repository contains
 
@@ -10,6 +10,7 @@ A Codex skill that provides a practical workflow for contributing to open-source
 ## Highlights
 
 - Enforces branch naming convention: `codex/feature/{feature_name}`
+- Focuses on PR preparation/creation instead of feature implementation
 - Requires explicit user confirmation of the final PR draft before `gh pr create`
 - Requires clear PR sections for motivation, engineering rationale, and test results
 - Encourages minimal, verifiable, review-ready contributions

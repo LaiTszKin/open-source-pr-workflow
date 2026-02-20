@@ -1,6 +1,6 @@
 ---
 name: open-source-pr-workflow
-description: Workflow for contributing to open-source projects and opening pull requests. Use when the user asks to contribute code to OSS repos, prepare a PR branch, push contribution changes, or open/update a PR. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
+description: PR-focused workflow for open-source repositories. Use when the user asks to prepare a PR branch from existing changes, draft/open/update a PR, or push a ready contribution branch. Do not use this skill for implementing product features or editing business logic; use it after code changes are already prepared. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
 ---
 
 # Open Source PR Workflow
@@ -8,6 +8,12 @@ description: Workflow for contributing to open-source projects and opening pull 
 ## Overview
 
 Use this workflow to prepare open-source contributions and open review-ready pull requests with consistent branch naming and PR content quality.
+
+## Scope Guardrails
+
+- This skill is for PR preparation and PR creation only.
+- Do not use this skill as the primary workflow for implementing features or fixing code.
+- If code changes are still needed, finish implementation in another workflow first, then return to this skill for PR handling.
 
 ## Workflow
 
@@ -28,9 +34,10 @@ Example:
 git checkout -b codex/feature/add-rate-limit-retry
 ```
 
-### 3) Implement and verify changes
+### 3) Verify existing changes (no feature implementation in this skill)
 
-- Make the minimal required code/documentation changes.
+- Assume code/documentation changes are already prepared before entering this workflow.
+- Do not add new feature implementation in this skill.
 - Run relevant checks (lint/test/build) based on repository conventions.
 - Record exact test commands and outcomes for PR content.
 
