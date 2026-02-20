@@ -1,6 +1,6 @@
 ---
 name: open-source-pr-workflow
-description: Workflow for contributing to open-source projects and opening pull requests. Use when the user asks to contribute code to OSS repos, prepare a PR branch, push contribution changes, or open/update a PR. Enforce branch naming as codex/feature/{feature_name}, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
+description: Workflow for contributing to open-source projects and opening pull requests. Use when the user asks to contribute code to OSS repos, prepare a PR branch, push contribution changes, or open/update a PR. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
 ---
 
 # Open Source PR Workflow
@@ -34,7 +34,14 @@ git checkout -b codex/feature/add-rate-limit-retry
 - Run relevant checks (lint/test/build) based on repository conventions.
 - Record exact test commands and outcomes for PR content.
 
-### 4) Open the PR
+### 4) Draft PR content and get user confirmation
+
+- Draft the PR title and full PR body before creating the PR.
+- Show the draft to the user and wait for explicit confirmation.
+- If the user requests edits, revise the draft and ask for confirmation again.
+- Only proceed to create the PR after the user confirms the final draft.
+
+### 5) Open the PR
 
 - Prefer `gh pr create` to open the PR.
 - Ensure PR title/body are in English by default.
@@ -69,6 +76,7 @@ If tests cannot run locally, state why and provide the closest available validat
 ## Pre-PR Checklist
 
 - Branch name matches `codex/feature/{feature_name}`.
+- User explicitly confirmed the final PR draft.
 - PR body includes all three required sections.
 - Test commands and results are explicitly listed.
 - Language defaults to English unless user requests otherwise.

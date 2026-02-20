@@ -10,6 +10,7 @@ A Codex skill that provides a practical workflow for contributing to open-source
 ## Highlights
 
 - Enforces branch naming convention: `codex/feature/{feature_name}`
+- Requires explicit user confirmation of the final PR draft before `gh pr create`
 - Requires clear PR sections for motivation, engineering rationale, and test results
 - Encourages minimal, verifiable, review-ready contributions
 
