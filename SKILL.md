@@ -1,6 +1,6 @@
 ---
 name: open-source-pr-workflow
-description: PR-focused workflow for open-source repositories. Use when the user asks to prepare a PR branch from existing changes, draft/open/update a PR, or push a ready contribution branch. Do not use this skill for implementing product features or editing business logic; use it after code changes are already prepared. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, default forked repositories to open PRs against the upstream parent repository unless the user explicitly requests the fork, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
+description: PR-focused workflow for open-source repositories. Use when the user asks to prepare a PR branch from existing changes, draft/open/update a PR, or push a ready contribution branch. Do not use this skill for implementing product features or editing business logic; use it after code changes are already prepared. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, default forked repositories to open PRs against the upstream parent repository unless the user explicitly requests the fork, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, test results with commands, and dependent-skill updates. For code-affecting changes, run edge-case-test-fixer first and code-simplifier second before opening the PR.
 ---
 
 # Open Source PR Workflow
@@ -37,21 +37,29 @@ Example:
 git checkout -b codex/feature/add-rate-limit-retry
 ```
 
-### 3) Verify existing changes (no feature implementation in this skill)
+### 3) Run dependent skills for code-affecting changes
+
+- If the PR includes code changes, run `edge-case-test-fixer` first.
+- Then run `code-simplifier` on the updated changes.
+- Keep both passes minimal and focused on the current PR scope.
+- Record what each skill changed so those updates can be included in the PR body.
+- If the PR has no code changes, explicitly note that these two skills were not required.
+
+### 4) Verify existing changes (no feature implementation in this skill)
 
 - Assume code/documentation changes are already prepared before entering this workflow.
 - Do not add new feature implementation in this skill.
-- Run relevant checks (lint/test/build) based on repository conventions.
+- After the dependent skills step (when required), run relevant checks (lint/test/build) based on repository conventions.
 - Record exact test commands and outcomes for PR content.
 
-### 4) Draft PR content and get user confirmation
+### 5) Draft PR content and get user confirmation
 
 - Draft the PR title and full PR body before creating the PR.
 - Show the draft to the user and wait for explicit confirmation.
 - If the user requests edits, revise the draft and ask for confirmation again.
 - Only proceed to create the PR after the user confirms the final draft.
 
-### 5) Open the PR
+### 6) Open the PR
 
 - Prefer `gh pr create` to open the PR.
 - If the repository is a fork, target the upstream parent repository by default (for example `gh pr create --repo <upstream-owner>/<upstream-repo> --head <fork-owner>:<branch>`).
@@ -73,6 +81,10 @@ Use this structure (or equivalent headings) every time:
 - Why each choice was made
 - Trade-offs considered (if applicable)
 
+## Dependent Skill Updates (if applicable)
+- `edge-case-test-fixer`: tests/fixes added for edge cases (or "none")
+- `code-simplifier`: simplifications/refactors applied (or "none")
+
 ## Test Results and Commands
 - ✅ `command 1`
 - ✅ `command 2`
@@ -90,6 +102,8 @@ If tests cannot run locally, state why and provide the closest available validat
 - Branch name matches `codex/feature/{feature_name}`.
 - User explicitly confirmed the final PR draft.
 - If the repository is a fork, PR destination is the upstream parent unless the user explicitly requested the fork.
-- PR body includes all three required sections.
+- PR body includes all required sections, including dependent skill updates when applicable.
+- If code changes exist, run `edge-case-test-fixer` and `code-simplifier` in that order before opening the PR.
+- PR body includes the "Dependent Skill Updates" section with changes from both skills (or "none").
 - Test commands and results are explicitly listed.
 - Language defaults to English unless user requests otherwise.

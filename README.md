@@ -14,6 +14,7 @@ A Codex skill focused on preparing and opening review-ready pull requests for op
 - Requires explicit user confirmation of the final PR draft before `gh pr create`
 - Defaults forked repositories to open PRs against the upstream parent repository (unless user explicitly requests the fork)
 - Requires clear PR sections for motivation, engineering rationale, and test results
+- For code changes, requires running `edge-case-test-fixer` then `code-simplifier` before opening PR, and documenting their updates in the PR body
 - Encourages minimal, verifiable, review-ready contributions
 
 ## License
