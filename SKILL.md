@@ -1,6 +1,6 @@
 ---
 name: open-source-pr-workflow
-description: PR-focused workflow for open-source repositories. Use when the user asks to prepare a PR branch from existing changes, draft/open/update a PR, or push a ready contribution branch. Do not use this skill for implementing product features or editing business logic; use it after code changes are already prepared. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
+description: PR-focused workflow for open-source repositories. Use when the user asks to prepare a PR branch from existing changes, draft/open/update a PR, or push a ready contribution branch. Do not use this skill for implementing product features or editing business logic; use it after code changes are already prepared. Enforce branch naming as codex/feature/{feature_name}, require user confirmation of the final PR draft before creating the PR, default forked repositories to open PRs against the upstream parent repository unless the user explicitly requests the fork, and write PR content in English by default with required sections for related issues or motivation, engineering decisions with rationale, and test results with commands.
 ---
 
 # Open Source PR Workflow
@@ -21,6 +21,9 @@ Use this workflow to prepare open-source contributions and open review-ready pul
 
 - Identify related issue links/IDs and summarize the motivation for the change.
 - Confirm target base branch and contribution constraints from the repository.
+- Detect whether the current repository is a fork (for example with `gh repo view --json isFork,parent,nameWithOwner`).
+- If it is a fork, default the PR destination repository to the upstream parent repository.
+- Only target the fork repository when the user explicitly asks for it.
 
 ### 2) Create a compliant branch name
 
@@ -51,6 +54,8 @@ git checkout -b codex/feature/add-rate-limit-retry
 ### 5) Open the PR
 
 - Prefer `gh pr create` to open the PR.
+- If the repository is a fork, target the upstream parent repository by default (for example `gh pr create --repo <upstream-owner>/<upstream-repo> --head <fork-owner>:<branch>`).
+- Use the fork as the PR destination only when the user explicitly requests it.
 - Ensure PR title/body are in English by default.
 - Switch language only when the user explicitly requests another language.
 
@@ -84,6 +89,7 @@ If tests cannot run locally, state why and provide the closest available validat
 
 - Branch name matches `codex/feature/{feature_name}`.
 - User explicitly confirmed the final PR draft.
+- If the repository is a fork, PR destination is the upstream parent unless the user explicitly requested the fork.
 - PR body includes all three required sections.
 - Test commands and results are explicitly listed.
 - Language defaults to English unless user requests otherwise.
