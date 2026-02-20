@@ -1,0 +1,4 @@
+interface:
+  display_name: "Open Source PR Workflow"
+  short_description: "Contribute and open high-quality OSS PRs"
+  default_prompt: "Contribute to an open-source repository, create branch names as codex/feature/{feature_name}, and open a PR that includes related issues or motivation, engineering decisions with rationale, and test results with commands."
